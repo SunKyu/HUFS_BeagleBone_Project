@@ -25,8 +25,9 @@ total_num = 0
 
 # root message : "sensor_type"
 def root(res):
+  global number
   sensor_type = res
-  search_index = 0
+  global search_index
   number = 0
   message = "search/%d/%d" %(0, number)
   clientmodule(message, addr[search_index].getaddr())
@@ -106,6 +107,8 @@ def root(res):
 
 
 def search(dataparse, address):
+  global number
+  global search_index
   if len(parent) is not 0:
     response = "searchres/%s" %(dataparse[1])
     clientmodule(response, address)
@@ -114,10 +117,9 @@ def search(dataparse, address):
     count = int(dataparse[1]) + 1
     number = count
     dic_addr[parent[0]]= address
-   
+
     if len(addr) != 0:
       message = "search/%d/%d" %(count, number)
-      global search_index
       clientmodule(message, addr[search_index].getaddr())
       search_index = search_index + 1
 
@@ -131,13 +133,16 @@ def search(dataparse, address):
 
 #----end-----
 def searchres(dataparse, address):
+  global search_index
+  global number
   if number != int(dataparse[1]):
     child.append(int(dataparse[1]))
     dic_addr[int(dataparse[1])] = address
 
   if search_index == len(addr):
-    print "parent : " + parent
-    print "child : " + child
+    print "nember", number
+    print "parent : ", parent
+    print "child : ", child
     message = "searchres/%d" %(int(dataparse[1]))
     clientmodule(message, dic_addr.get(int(parent[0])))
 
@@ -150,6 +155,10 @@ def searchres(dataparse, address):
 
 #----end-----
 def get(dataparse, address):
+  global indexflag
+  global number
+  global get_target
+  global sensor_type
   get_target = int(dataparse[1])
   sensor_type = dataparse[2]
   if int(dataparse[1]) is number:
