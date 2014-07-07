@@ -95,7 +95,7 @@ def root(res):
       for j in child:
         clientmodule(message, dic_addr[child[j]])
 
-    sleep(30)
+    time.sleep(30)
 
       
 
