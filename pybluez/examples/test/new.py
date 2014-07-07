@@ -91,6 +91,13 @@ def root(res):
     
     for i in range(0, total_num):
       message = ""
+			if i == number :
+				if dic_sensor["light"][i] >= 3:
+					light_state = 1
+				else:
+					light_state = 0
+				continue
+			
       if dic_sensor["light"][i] >= 3:
         message = "put/%d/%s/%d" %(i, sensor_type, 1)
       else :
