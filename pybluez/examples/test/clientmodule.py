@@ -4,7 +4,9 @@
 
 import sys
 import bluetooth
+import time
 def clientmodule(message, addr):
+  sleep(5)
   if sys.version < '3':
     input = raw_input
 

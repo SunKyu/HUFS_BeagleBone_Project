@@ -14,5 +14,5 @@ def servermodule ():
 
   data = client_sock.recv(1024)
   print("Data received:", data)
-  recive = "%s/%s" %(data, address[0])
+  recive = "%s/%s" %(data, str(address[0]))
   return recive
