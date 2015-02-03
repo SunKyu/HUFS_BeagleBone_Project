@@ -3,5 +3,13 @@
 **HUFS Begalebone Black IOT Project**
 
 If first time to install ubuntu  
-run 'vim' and ':PluginInstall'
+
+```
+$ cd /opt
+$ git clone https://github.com/SunKyu/HUFS_BeagleBone_Project.git
+$ sudo chmod 755 init.sh
+$ ./init.sh
+```
+and then 
+run `vim` and `:PluginInstall`
 
