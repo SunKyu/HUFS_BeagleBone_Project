@@ -3,6 +3,7 @@ sudo apt-get install -y vim
 sudo apt-get install -y git
 sudo apt-get install -y python-dev
 sudo apt-get install -y python-pip
+sudo apt-get install -y python-smbus
 sudo pip install Adafruit_BBIO
 
 
