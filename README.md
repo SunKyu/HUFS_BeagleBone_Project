@@ -3,7 +3,7 @@
 **HUFS Begalebone Black IOT Project**
 
 If first time to install ubuntu  
-`su`  and then type the passwords and then  
+`sudo su`  and then type the passwords and then  
 ```
 $ cd /opt
 $ git clone https://github.com/SunKyu/HUFS_BeagleBone_Project.git
