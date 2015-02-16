@@ -5,6 +5,9 @@ import os
 import sys
 import struct
 import bluetooth._bluetooth as bluez
+from btaddr import BTaddr
+
+mac_info = []
 
 def printpacket(pkt):
     for c in pkt:
@@ -100,6 +103,8 @@ def device_inquiry_with_with_rssi(sock):
                 rssi = struct.unpack("b", pkt[1+13*nrsp+i])[0]
                 results.append( ( addr, rssi ) )
                 print "[%s] RSSI: [%d]" % (addr, rssi)
+                BTinfo = BTaddr(addr, rssi)
+                mac_info.append(BTinfo)
         elif event == bluez.EVT_INQUIRY_COMPLETE:
             done = True
         elif event == bluez.EVT_CMD_STATUS:
@@ -154,3 +159,11 @@ if mode != 1:
     print "result: %d" % result
 
 device_inquiry_with_with_rssi(sock)
+qwe = BTaddr("acsdfef", "-39")
+mac_info.append(qwe)
+for info in mac_info:
+  print "addr : %s rssi : %s " %(info.getaddr(), info.getrssi())
+
+
+
+

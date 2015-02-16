@@ -1,15 +1,18 @@
 class BTaddr():
   addr = " "
   rssi = " "
-  def setaddr(in_addr):
+  def __init__(self, in_addr, in_rssi):
+    self.addr = in_addr
+    self.rssi = in_rssi
+  def setaddr(self,in_addr):
     self.addr = in_addr
   
-  def setrssi(in_rssi):
+  def setrssi(self,in_rssi):
     self.rssi = in_rssi
   
-  def getaddr():
+  def getaddr(self ):
     return self.addr
   
-  def getrssi():
+  def getrssi(self):
     return self.rssi
 
