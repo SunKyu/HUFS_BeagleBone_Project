@@ -26,7 +26,7 @@ while 1:
     #fill the condition
     #
 
-  else if parse[2] == "serach":
+  elif parse[2] == "serach":
     #fill the condition
     if len(parent) is 0 :
       #fill the condition
