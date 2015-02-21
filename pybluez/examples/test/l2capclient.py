@@ -22,10 +22,11 @@ print("trying to connect to %s on PSM 0x%X" % (bt_addr, port))
 sock.connect((bt_addr, port))
 
 print("connected.  type stuff")
-while True:
-    data = input()
-    if(len(data) == 0): break
-    sock.send(data)
-
+#while True:
+data = input()
+#if(len(data) == 0): break
+sock.send(data)
+response = sock.recv(1024)
+print(response)
 sock.close()
 
