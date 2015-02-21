@@ -20,17 +20,21 @@ while 1:
   data = client_sock.recv(1024)
   print("Data received:", data)
   
-  parse = data.split('/', 1)
+  parse = data.split('/')
  
   if parse[2] == "root":
     #fill the condition
     print "pass"
-  elif parse[2] == "serach":
+    print "root condition"
+  elif parse[2] == "search":
     #fill the condition
-    
+    print "search condition"
     if len(parent) is 0:
       #fill the condition
-      number = parse[1]+1
+      number =int(parse[1])+1
+      print "sensor number %d" %number
+      data = "%d/%d/0" %(number, count) 
+      client_sock.send('Echo => ' + data)
       client_sock.close()
       server_sock.close()
   
