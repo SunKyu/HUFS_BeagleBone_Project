@@ -163,23 +163,24 @@ def inquriy_run():
 #    print "addr : %s rssi : %s " %(info.getaddr(), info.getrssi())
   return mac_info
 
+def getaddr_rssi():
+  listmac = inquriy_run()
+  sortmac = sorted(listmac, key=lambda x: x.rssi)
 
-listmac = inquriy_run()
-sortmac = sorted(listmac, key=lambda x: x.rssi)
-
-newmac = []
-newmac.append(sortmac.pop())
-while 1:
-  if len(sortmac) is 0:
-   break
-  infopop =sortmac.pop()
-  if infopop.getaddr() == newmac[len(newmac)-1].getaddr():
-    continue
-  else: 
-    newmac.append(infopop)
+  newmac = []
+  newmac.append(sortmac.pop())
+  while 1:
+    if len(sortmac) is 0:
+      break
+    infopop =sortmac.pop()
+    if infopop.getaddr() == newmac[len(newmac)-1].getaddr():
+      continue
+    else: 
+      newmac.append(infopop)
 
 
-for info in newmac:
-  print "addr : %s rssi : %s " %(info.getaddr(), info.getrssi())
+  for info in newmac:
+    print "addr : %s rssi : %s " %(info.getaddr(), info.getrssi())
 
+  return newmac
   
