@@ -26,9 +26,9 @@ while 1:
     #fill the condition
     #
 
-  elif parse[2] == "serach":
+  elif parse[2] == "serach" :
     #fill the condition
-    if len(parent) is 0 :
+    if len(parent) is 0:
       #fill the condition
       number = parse[1]+1
       client_sock.close()
