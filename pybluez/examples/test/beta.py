@@ -35,7 +35,8 @@ while 1:
     if len(parent) is 0:
       #fill the condition
       parent.append(int(parse[0]))
-      dic_addr[parnet[0]] = address# need to address fill
+      dic_addr[parent[0]] = address# need to address fill
+      print dic_addr
       number =int(parse[1])+1
       count = int(parse[1])+1
       print "sensor number %d" %number
