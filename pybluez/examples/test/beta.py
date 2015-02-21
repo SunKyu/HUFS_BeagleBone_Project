@@ -1,5 +1,5 @@
 from test_inquiry import *
-
+import bluetooth
 addr = getaddr_rssi()
 parent = []
 child = [] 
@@ -24,10 +24,10 @@ while 1:
  
   if parse[2] == "root":
     #fill the condition
-    #
-
-  elif parse[2] == "serach" :
+    print "pass"
+  elif parse[2] == "serach":
     #fill the condition
+    
     if len(parent) is 0:
       #fill the condition
       number = parse[1]+1
@@ -36,7 +36,7 @@ while 1:
   
     else:
       count = parse[1]
-      data = "%s/%s/1", %(number, count)
+      data = "%d/%d/1" %(number, count)
       client_sock.send('Echo => ' + data)
 
 
