@@ -1,8 +1,8 @@
 from test_inquiry import *
 
 addr = getaddr_rssi()
-parent []
-child [] 
+parent = []
+child = [] 
 number = -1
 count = -1
 while 1:
