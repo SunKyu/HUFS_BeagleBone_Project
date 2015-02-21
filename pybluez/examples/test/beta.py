@@ -1,3 +1,3 @@
-import test_inquiry as getaddr_rssi
+import test_inquiry
 
 addr = getaddr_rssi()
