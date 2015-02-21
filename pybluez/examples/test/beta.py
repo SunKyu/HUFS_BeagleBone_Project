@@ -1,5 +1,6 @@
 from test_inquiry import *
 import bluetooth
+from clientmodule import *
 addr = getaddr_rssi()
 parent = []
 child = [] 
@@ -24,6 +25,7 @@ while 1:
  
   if parse[2] == "root":
     #fill the condition
+    parent.append(-1)
     print "pass"
     print "root condition"
   elif parse[2] == "search":
@@ -31,7 +33,9 @@ while 1:
     print "search condition"
     if len(parent) is 0:
       #fill the condition
+      parent.append(int(parse[0]))
       number =int(parse[1])+1
+      count = int(parse[1])+1
       print "sensor number %d" %number
       data = "%d/%d/0" %(number, count) 
       client_sock.send('Echo => ' + data)
