@@ -104,8 +104,6 @@ def device_inquiry_with_with_rssi(sock):
                 rssi = struct.unpack("b", pkt[1+13*nrsp+i])[0]
                 results.append( ( addr, rssi ) )
                 print "[%s] RSSI: [%d]" % (addr, rssi)
-                name = bluetooth.lookup_name(addr, 5)
-                print name
                 BTinfo = BTaddr(addr, rssi)
                 mac_info.append(BTinfo)
         elif event == bluez.EVT_INQUIRY_COMPLETE:
@@ -180,10 +178,15 @@ def getaddr_rssi():
       continue
     else: 
       newmac.append(infopop)
-
-
+  lastmac =[]
   for info in newmac:
+    name = bluetooth.lookup_name(info.getaddr(), 10)
+    print "addr -> %s, name -> %s" %(info.getaddr(), name)
+    if name == "arm-0":
+      lastmac.append(info)
+
+  for info in lastmac:
     print "addr : %s rssi : %s " %(info.getaddr(), info.getrssi())
 
-  return newmac
+  return lastmac
   
