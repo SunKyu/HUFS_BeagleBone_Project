@@ -28,6 +28,53 @@ while 1:
   if parse[2] == "root":
         #fill the condition
     parent.append(-1)
+    number = int(parse[1])+1
+    count = int(parse[1])+1
+    data = "%d/%d/search" %(number, count)
+
+    #make!!
+    SIZE = len(addr)
+    while SIZE != 0:
+      SIZE = SIZE - 1
+      if addr[SIZE].get_rssi() < -80 :
+        continue
+               
+      else:
+        data_two = clinetmodule("search", addr[SIZE].get_addr())
+        response = data_two('/')
+                  
+        if response[2] == 1:
+          continue
+             
+        else:
+          server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
+          port2 = 0x1002
+          server_sock_two.bind(("",port2))
+          server_sock_two.listen(1)
+          client_sock_two,address_two = server_sock_two.accept()
+          subdata = client_sock.recv(1024)
+          parse2 = subdata.split('/')
+          while parse2[2] == "search":
+            data2 = "%d/%d/1" %(int(parse2[0]), int(parse2[1]))
+            client_sock_two.send('Echo => ' + data2)
+            server_sock_two.close()
+            client_sock_two.close()
+    
+            server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
+            port2 = 0x1002
+            server_sock_two.bind(("",port2))
+            server_sock_two.listen(1)
+            client_sock_two,address_two = server_sock_two.accept()
+            subdata = client_sock.recv(1024)
+            parse2 = subdata.split('/')
+    
+            dic_addr[int(parse2[0])] = address_two
+            child.append(int(parse2[0]))
+    
+            data = "%d/%d/1" %(number, count)
+            client_sock.send('Echo => ' + data)
+
+
     print "pass"
     print "root condition"
   elif parse[2] == "search":
@@ -52,7 +99,8 @@ while 1:
           continue
 
         else:
-          # run clientmodul() & split
+          data_two = clinetmodule("search", addr[SIZE].get_addr())
+          response = data_two('/')    
 
           if response[2] == 1:
             continue
@@ -79,10 +127,11 @@ while 1:
               subdata = client_sock.recv(1024)
               parse2 = subdata.split('/')
 
+            dic_addr[int(parse2[0])] = address_two
             child.append(int(parse2[0]))
 
       data = "%d/%d/1" %(number, count)
-      client_sock.send("Echo => " + data)
+      client_sock.send('Echo => ' + data)
 
 
       #end
