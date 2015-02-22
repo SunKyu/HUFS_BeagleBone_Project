@@ -68,7 +68,8 @@ while 1:
             subdata = client_sock.recv(1024)
             parse2 = subdata.split('/')
     
-            dic_addr[int(parse2[0])] = address_two
+            addr_two = address_two.split("'")
+            dic_addr[int(parse2[0])] = addr_two[1]
             child.append(int(parse2[0]))
     
             data = "%d/%d/1" %(number, count)
@@ -83,7 +84,8 @@ while 1:
     if len(parent) is 0:
     #fill the condition
       parent.append(int(parse[0]))
-      dic_addr[parent[0]] = address# need to address fill
+      addr_one = adress.split("'")
+      dic_addr[parent[0]] = addr_one[1]# need to address fill
       print dic_addr
       number =int(parse[1])+1
       count = int(parse[1])+1
@@ -127,7 +129,9 @@ while 1:
               subdata = client_sock.recv(1024)
               parse2 = subdata.split('/')
 
-            dic_addr[int(parse2[0])] = address_two
+            
+            addr_two = address_two.split("'")
+            dic_addr[int(parse2[0])] = addr_two[1]
             child.append(int(parse2[0]))
 
       data = "%d/%d/1" %(number, count)
