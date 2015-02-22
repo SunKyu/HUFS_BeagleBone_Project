@@ -36,11 +36,11 @@ while 1:
     SIZE = len(addr)
     while SIZE != 0:
       SIZE = SIZE - 1
-      if addr[SIZE].get_rssi() < -80 :
+      if addr[SIZE].getrssi() < -80 :
         continue
                
       else:
-        data_two = clinetmodule("search", addr[SIZE].get_addr())
+        data_two = clinetmodule("%d/%d/search"%(number, count), addr[SIZE].getaddr())
         response = data_two('/')
                   
         if response[2] == 1:
@@ -95,11 +95,11 @@ while 1:
       SIZE = len(addr)
       while SIZE != 0:
         SIZE = SIZE - 1
-        if addr[SIZE].get_rssi() < -80 :
+        if addr[SIZE].getrssi() < -80 :
           continue
 
         else:
-          data_two = clinetmodule("search", addr[SIZE].get_addr())
+          data_two = clinetmodule("%d/%d/search"%(number, count), addr[SIZE].getaddr())
           response = data_two('/')    
 
           if response[2] == 1:
