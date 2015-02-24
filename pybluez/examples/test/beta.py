@@ -1,4 +1,5 @@
 
+
 from test_inquiry import *
 import bluetooth
 from clientmodule import *
@@ -121,10 +122,18 @@ while 1:
                   continue
 
                 else:
-                  new_arr[k] = new_arr[k] + parse2[2]
+                  new_arr[k] = new_arr[k] +int( parse2[2])
                   server_sock_two.close()
                   client_sock_two.close()
 
+              else:
+                #success
+                if parse[3] == 'fail':
+                  continue
+
+                else:
+                  new_arr[k] = new_arr[k] + int(parse2[2])
+        dic_state['light'] = new_arr
 
     print "pass"
     print "root condition"
@@ -199,6 +208,50 @@ while 1:
       client_sock.send('Echo => ' + data)
 
   elif parse[0] == "get":
-    
+    if parse[1] == number:
+      state =1 #light state
+      client_sock.send('%s/%d/%d/%s' %('get',0,state, 'success'))
+
+    else:
+      #by fail...
+      for i in range(0, len(child)):
+        data_two = clinetmodule("%s/%d/%s"%('get', i, 'light'), dic_addr[i])
+
+        response = data_two.split('/')
+
+        if response[2] == 'wait':
+          server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
+          port2 = 0x1002
+          server_sock_two.bind(("",port2))
+                
+          server_sock_two.listen(1)
+          client_sock_two,address_two = server_sock_two.accept()
+          subdata = client_sock.recv(1024)
+          parse2 = subdata.split('/')
+
+          if parse2[3] == 'fail':
+            server_sock_two.close()
+            client_sock_two.close()
+            continue
+
+          else:
+            server_sock_two.close()
+            client_sock_two.close()
+            state =1 #light state
+            client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
+            break
+
+
+        else:
+          #success
+          if parse[3] == 'fail':
+            continue
+
+          else:
+            state = 1#light stats    
+            client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
+                
+  server_sock.close()
+  client_sock.close()
 
 #--------- end of while--------
