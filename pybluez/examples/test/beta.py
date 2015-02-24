@@ -193,7 +193,7 @@ while 1:
       client_sock.close()
       server_sock.close()
     
-    else:
+    else: #when parents exist
       count = parse[1]
       data = "%d/%d/1" %(number, count)
       client_sock.send('Echo => ' + data)
