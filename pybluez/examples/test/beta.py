@@ -102,7 +102,7 @@ while 1:
 
           else:
             for k in range(0, len(child)):
-              data_two = clinetmodule("%s/%d/%s"%('get', k, 'light'), dic_addr[k])
+              data_two = clinetmodule("%s/%d/%s"%('get', j, 'light'), dic_addr[k])
 
               response = data_two.split('/')
 
@@ -113,7 +113,7 @@ while 1:
                 
                 server_sock_two.listen(1)
                 client_sock_two,address_two = server_sock_two.accept()
-                subdata = client_sock.recv(1024)
+                subdata = client_sock_two.recv(1024)
                 parse2 = subdata.split('/')
 
                 if parse2[3] == 'fail':
@@ -125,14 +125,16 @@ while 1:
                   new_arr[k] = new_arr[k] +int( parse2[2])
                   server_sock_two.close()
                   client_sock_two.close()
+                  break
 
               else:
                 #success
-                if parse[3] == 'fail':
+                if response[3] == 'fail':
                   continue
 
                 else:
-                  new_arr[k] = new_arr[k] + int(parse2[2])
+                  new_arr[k] = new_arr[k] + int(response[2])
+                  break
         dic_state['light'] = new_arr
 
     print "pass"
@@ -214,8 +216,10 @@ while 1:
 
     else:
       #by fail...
+      client_sock.send('%s/%d/%s' %('get', 0, 'wait'))
+      success_fail = 'fail'
       for i in range(0, len(child)):
-        data_two = clinetmodule("%s/%d/%s"%('get', i, 'light'), dic_addr[i])
+        data_two = clinetmodule("%s/%d/%s"%('get', parse[1], 'light'), dic_addr[i])
 
         response = data_two.split('/')
 
@@ -226,7 +230,7 @@ while 1:
                 
           server_sock_two.listen(1)
           client_sock_two,address_two = server_sock_two.accept()
-          subdata = client_sock.recv(1024)
+          subdata = client_sock_two.recv(1024)
           parse2 = subdata.split('/')
 
           if parse2[3] == 'fail':
@@ -235,22 +239,27 @@ while 1:
             continue
 
           else:
+            success_fail = 'success'
             server_sock_two.close()
             client_sock_two.close()
-            state =1 #light state
+            state = parse2[2] 
             client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
             break
 
 
         else:
           #success
-          if parse[3] == 'fail':
+          if response[3] == 'fail':
             continue
 
           else:
-            state = 1#light stats    
+            success_fail = 'success'
+            state = response[2]#light stats    
             client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
+            break
                 
+      if sucess_fail == 'fail'
+        client_sock.send("%s/%d/%d/%s" %('get', 0, 0, 'fail'))
   server_sock.close()
   client_sock.close()
 
