@@ -101,7 +101,7 @@ while 1:
             new_arr[j] = new_arr[j] + 1
 
           else:
-            for k in range(0, len(child)):
+            for k in child:
               data_two = clinetmodule("%s/%d/%s"%('get', j, 'light'), dic_addr[k])
 
               response = data_two.split('/')
@@ -218,7 +218,7 @@ while 1:
       #by fail...
       client_sock.send('%s/%d/%s' %('get', 0, 'wait'))
       success_fail = 'fail'
-      for i in range(0, len(child)):
+      for i in child:
         data_two = clinetmodule("%s/%d/%s"%('get', parse[1], 'light'), dic_addr[i])
 
         response = data_two.split('/')
