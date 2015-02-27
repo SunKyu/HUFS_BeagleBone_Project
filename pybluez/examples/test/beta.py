@@ -2,6 +2,7 @@
 
 from test_inquiry import *
 import bluetooth
+import sys
 from clientmodule import *
 addr = getaddr_rssi()
 dic_addr ={}
@@ -137,6 +138,27 @@ while 1:
                   break
         dic_state['light'] = new_arr
 
+      #put
+      new_array = dic_state.get('light')
+      for j in range(0, total_count):
+        if new_array[j] > 2:
+          if j == number:
+            #turn on light
+            light =1
+          else:
+            for k in child:
+              if sys.version < '3':
+                input = raw_input
+              sock3=bluetooth.BluetoothSocket(bluetooth.L2CAP)
+              bt_addr3 = dic_addr[k]
+              port = 0x1003
+
+              sock3.connect((bt_addr3, port))
+
+              sock3.send("%s/%d/%s" %('put', j, 'light'))
+              sock3.close()
+
+
     print "pass"
     print "root condition"
   elif parse[2] == "search":
@@ -258,8 +280,27 @@ while 1:
             client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
             break
                 
-      if sucess_fail == 'fail'
+      if sucess_fail == 'fail':
         client_sock.send("%s/%d/%d/%s" %('get', 0, 0, 'fail'))
+
+  elif parse[0] == 'put':
+    if parse[1] == number:
+      #turn on light
+      light =1
+
+    else:
+      for k in child:
+        if sys.version < '3':
+          input = raw_input
+        sock3=bluetooth.BluetoothSocket(bluetooth.L2CAP)
+        bt_addr3 = dic_addr[k]
+        port = 0x1003
+
+        sock3.connect((bt_addr3, port))
+
+        sock3.send("%s/%d/%s" %('put', parse[1], parse[2]))
+        sock3.close()
+
   server_sock.close()
   client_sock.close()
 
