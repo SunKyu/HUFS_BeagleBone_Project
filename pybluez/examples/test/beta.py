@@ -24,7 +24,11 @@ while 1:
   client_sock,address = server_sock.accept()
   print("Accepted connection from ",address)
 
-  data = client_sock.recv(1024)
+  if len(sys.argv) != 1:
+    data = argv[1]
+  else:
+    data = client_sock.recv(1024)
+  
   print("Data received:", data)
       
   parse = data.split('/')
