@@ -10,7 +10,7 @@ def clinetmodule(message, addr):
 
   sock=bluetooth.BluetoothSocket(bluetooth.L2CAP)
   bt_addr=addr
-  port = 0x1001
+  port = 0x1003
 
   print("trying to connect to %s on PSM 0x%X" % (bt_addr, port))
 
