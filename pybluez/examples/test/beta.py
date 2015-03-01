@@ -8,31 +8,31 @@ addr = getaddr_rssi()
 dic_addr ={}
 dic_state={}
 parent = []
-child = [] 
+child = []
 number = -1
 count = -1
 total_count = 0
 while 1:
-    
-  server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
-
-  port = 0x1001
-
-  server_sock.bind(("",port))
-  server_sock.listen(1)
-
-  client_sock,address = server_sock.accept()
-  print("Accepted connection from ",address)
 
   if len(sys.argv) != 1:
     data = argv[1]
   else:
+    server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
+
+    port = 0x1001
+
+    server_sock.bind(("",port))
+    server_sock.listen(1)
+
+    client_sock,address = server_sock.accept()
+    print("Accepted connection from ",address)
     data = client_sock.recv(1024)
-  
+
+
   print("Data received:", data)
-      
+
   parse = data.split('/')
-       
+
   if parse[2] == "root":
         #fill the condition
     parent.append(-1)
@@ -42,19 +42,19 @@ while 1:
 
     #make!!
     SIZE = len(addr)
-    
+
     while SIZE != 0:
       SIZE = SIZE - 1
       if addr[SIZE].getrssi() < -80 :
         continue
-               
+
       else:
         data_two = clinetmodule("%d/%d/search"%(number, count), addr[SIZE].getaddr())
         response = data_two('/')
-                  
+
         if response[2] == 1:
           continue
-             
+
         else:
           server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
           port2 = 0x1002
@@ -68,7 +68,7 @@ while 1:
             client_sock_two.send('Echo => ' + data2)
             server_sock_two.close()
             client_sock_two.close()
-    
+
             server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
             port2 = 0x1002
             server_sock_two.bind(("",port2))
@@ -76,16 +76,16 @@ while 1:
             client_sock_two,address_two = server_sock_two.accept()
             subdata = client_sock.recv(1024)
             parse2 = subdata.split('/')
-    
+
             addr_two = address_two.split("'")
             dic_addr[int(parse2[0])] = addr_two[1]
             child.append(int(parse2[0]))
-    
+
             data = "%d/%d/1" %(number, count)
             client_sock.send('Echo => ' + data)
 
         total_count = response[1]
-    
+
 
     # first while end
 
@@ -115,7 +115,7 @@ while 1:
                 server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
                 port2 = 0x1002
                 server_sock_two.bind(("",port2))
-                
+
                 server_sock_two.listen(1)
                 client_sock_two,address_two = server_sock_two.accept()
                 subdata = client_sock_two.recv(1024)
@@ -177,7 +177,7 @@ while 1:
       number =int(parse[1])+1
       count = int(parse[1])+1
       print "sensor number %d" %number
-      data = "%d/%d/0" %(number, count) 
+      data = "%d/%d/0" %(number, count)
       client_sock.send('Echo => ' + data)
 
       #make
@@ -189,7 +189,7 @@ while 1:
 
         else:
           data_two = clinetmodule("%d/%d/search"%(number, count), addr[SIZE].getaddr())
-          response = data_two.split('/')    
+          response = data_two.split('/')
 
           if response[2] == 1:
             continue
@@ -216,7 +216,7 @@ while 1:
               subdata = client_sock.recv(1024)
               parse2 = subdata.split('/')
 
-            
+
             addr_two = address_two.split("'")
             dic_addr[int(parse2[0])] = addr_two[1]
             child.append(int(parse2[0]))
@@ -229,7 +229,7 @@ while 1:
 
       client_sock.close()
       server_sock.close()
-    
+
     else: #when parents exist
       count = parse[1]
       data = "%d/%d/1" %(number, count)
@@ -253,7 +253,7 @@ while 1:
           server_sock_two = bluetooth.BluetoothSocket( bluetooth.L2CAP )
           port2 = 0x1002
           server_sock_two.bind(("",port2))
-                
+
           server_sock_two.listen(1)
           client_sock_two,address_two = server_sock_two.accept()
           subdata = client_sock_two.recv(1024)
@@ -268,7 +268,7 @@ while 1:
             success_fail = 'success'
             server_sock_two.close()
             client_sock_two.close()
-            state = parse2[2] 
+            state = parse2[2]
             client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
             break
 
@@ -280,10 +280,10 @@ while 1:
 
           else:
             success_fail = 'success'
-            state = response[2]#light stats    
+            state = response[2]#light stats
             client_sock.send("%s/%d/%d/%s" %('get', 0, state, 'success'))
             break
-                
+
       if sucess_fail == 'fail':
         client_sock.send("%s/%d/%d/%s" %('get', 0, 0, 'fail'))
 
