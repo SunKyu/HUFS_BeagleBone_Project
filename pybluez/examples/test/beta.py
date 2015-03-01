@@ -15,7 +15,7 @@ total_count = 0
 while 1:
 
   if len(sys.argv) != 1:
-    data = argv[1]
+    data = sys.argv[1]
   else:
     server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
 
