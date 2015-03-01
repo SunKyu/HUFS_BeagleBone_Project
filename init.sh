@@ -4,6 +4,7 @@ sudo apt-get install -y python-dev
 sudo apt-get install -y python-pip
 sudo apt-get install -y python-smbus
 sudo apt-get install -y bluez
+sudo apt-get install -y libbluetooth-dev
 sudo pip install Adafruit_BBIO
 sudo pip install pybluez
 
