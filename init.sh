@@ -7,10 +7,10 @@ sudo apt-get install -y bluez
 sudo pip install Adafruit_BBIO
 sudo pip install pybluez
 
-cd /opt
-git clone https://github.com/SunKyu/Vim_vimrc.git
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-cd Vim_vimrc
-cat vimrcfile > ~/.vimrc 
+#cd /opt
+#git clone https://github.com/SunKyu/Vim_vimrc.git
+#git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#cd Vim_vimrc
+#cat vimrcfile > ~/.vimrc 
 
 
