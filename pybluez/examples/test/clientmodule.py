@@ -18,8 +18,5 @@ def clinetmodule(message, addr):
 
   print("connected.  type stuff")
   sock.send(message)
-  response = sock.recv(1024)
-  print(response)
   sock.close()
-  return response
 
