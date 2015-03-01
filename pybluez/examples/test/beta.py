@@ -304,8 +304,8 @@ while 1:
 
         sock3.send("%s/%d/%s" %('put', parse[1], parse[2]))
         sock3.close()
-
-  server_sock.close()
-  client_sock.close()
+  if len(sys.argv) == 1:
+    server_sock.close()
+    client_sock.close()
 
 #--------- end of while--------
