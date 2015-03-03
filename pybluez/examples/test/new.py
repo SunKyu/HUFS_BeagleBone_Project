@@ -10,7 +10,37 @@ child = []
 number = -1
 count = -1
 
+def search():
+
+#----end-----
+def searchres():
+
+
+#----end-----
+def get():
+
+
+#----end-----
+def getres():
+
+
+#----end-----
+def put():
+
+
+#----end-----
+
+schemas = {
+    "search" : search,
+    "searchres" : searchres,
+    "get" : get,
+    "getres" : getres,
+    "put" : put
+    }
+
 while 1: 
-  
-  
+  data = servermoudle()
+  data = data.split('/')
+  schema = data[0]
+  schemas[schema]()
 
