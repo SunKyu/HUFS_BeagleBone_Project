@@ -10,22 +10,26 @@ child = []
 number = -1
 count = -1
 
-def search():
-
+def search(dataparse, address):
+ if len(parnet) is not 0:
+   response = "searchres/%s" %dataparse[1]
+   clientmodule(response, address)
+ else:
+   parent[
 #----end-----
-def searchres():
-
-
-#----end-----
-def get():
-
-
-#----end-----
-def getres():
+def searchres(dataparse):
 
 
 #----end-----
-def put():
+def get(dataparse):
+
+
+#----end-----
+def getres(dataparse):
+
+
+#----end-----
+def put(dataparse):
 
 
 #----end-----
@@ -43,5 +47,5 @@ while 1:
   dataparse = data.split('/')
   schema = dataparse[0]
   address = dataparse[len(dataparse)-1]
-  schemas[schema]()
+  schemas[schema](dataparse, address)
 
