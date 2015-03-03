@@ -24,6 +24,7 @@ def search(dataparse, address):
    parent.append(int(dataparse[2]))
    count = int(dataparse[1])
    number = count+1
+   dic_addr[parent[0]]= address
    if len(addr):
     message = "search/%d/%d" %(count, number)
    #need more case
@@ -31,7 +32,6 @@ def search(dataparse, address):
 
 #----end-----
 def searchres(dataparse, address):
-
 
 
 #----end-----
