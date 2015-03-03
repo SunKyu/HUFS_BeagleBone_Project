@@ -40,7 +40,8 @@ schemas = {
 
 while 1: 
   data = servermoudle()
-  data = data.split('/')
-  schema = data[0]
+  dataparse = data.split('/')
+  schema = dataparse[0]
+  address = dataparse[len(dataparse)-1]
   schemas[schema]()
 
