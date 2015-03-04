@@ -41,16 +41,18 @@ def search(dataparse, address):
 
 #----end-----
 def searchres(dataparse, address):
-  if number + 1 == dataparse[1]:
-    if search_index == len(addr):
-      message = "searchres/%d" %(int(dataparse))#check the what index of dataparse ---------------
-      clientmodule(message, dic_addr.get(int(parent[0])))
+  if number + 1 != dataparse[1]:
+    child.append(int(dataparse[1]))
 
-    else:
-      message = "search/%d/%d" %(int(dataparse), number)
-      clientmodule(message, addr[search_index].getaddr())
-      search_index = search_index + 1
-  #Don't we need a else cas???
+  if search_index == len(addr):
+    message = "searchres/%d" %(int(dataparse[1]))
+    clientmodule(message, dic_addr.get(int(parent[0])))
+
+  else:
+    message = "search/%d/%d" %(int(dataparse[1]), number)
+    clientmodule(message, addr[search_index].getaddr())
+    search_index = search_index + 1
+  
 
 
 #----end-----
