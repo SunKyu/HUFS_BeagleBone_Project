@@ -13,25 +13,43 @@ indexflag  = 0 #need to change when all child visit (get, search)
 get_target = -1 #store targetnumber
 sensor_type = ""#store sensor_type
 light_state = 0 #store light state
+search_index = 0 #store current search index
 
 
 def search(dataparse, address):
- if len(parent) is not 0:
-   response = "searchres/%s" %dataparse[1]
-   clientmodule(response, address)
- else: 
-   #need more case
-   parent.append(int(dataparse[2]))
-   count = int(dataparse[1])
-   number = count+1
-   dic_addr[parent[0]]= address
-   if len(addr):
-    message = "search/%d/%d" %(count, number)
+  if len(parent) is not 0:
+    response = "searchres/%s" %dataparse[1]
+    clientmodule(response, address)
+  else: 
+    parent.append(int(dataparse[2]))
+    count = int(dataparse[1]) + 1
+    number = count
+    dic_addr[parent[0]]= address
+   
+    if len(addr) != 0:
+      message = "search/%d/%d" %(count, number)
+      clientmodule(message, addr[search_index].getaddr())
+      search_index = search_index + 1
+
+    else:
+      message = "searchres/%d" %(count)
+      clientmodule(message, address)
+
+   
    #need more case
 
 
 #----end-----
 def searchres(dataparse, address):
+  if number + 1 == dataparse[1]:
+    if search_index == len(addr):
+      message = "searchres/%d" %(int(dataparse))
+      clientmodule(message, dic_addr.get(int(parent[0])))
+
+    else:
+      message = "search/%d/%d" %(int(dataparse), number)
+      clientmodule(message, addr[search_index].getaddr())
+      search_index = search_index + 1
 
 
 #----end-----
