@@ -41,8 +41,9 @@ def search(dataparse, address):
 
 #----end-----
 def searchres(dataparse, address):
-  if number + 1 != dataparse[1]:
+  if number != dataparse[1]:
     child.append(int(dataparse[1]))
+    dic_addr[int(dataparse[1])] = address
 
   if search_index == len(addr):
     message = "searchres/%d" %(int(dataparse[1]))
