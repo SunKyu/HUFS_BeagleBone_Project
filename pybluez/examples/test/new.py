@@ -25,10 +25,28 @@ def root():
 
   while 1:
     #infinite loop
+    num_index = 0
     while 1:
-      #send each count
+      if num_index == number:
+        # determine light state
+        num_index = num_index + 1
+        continue
+      
+      child_num = 0
+      dataparse
       while 1:
-        #send each child
+        message = "%s/%d/%s" %("get", num_index, sensor_type)
+        clientmodule(message, dic_addr[child[indexflag]])
+        child_num = child_num + 1
+        data = servermodule()
+        dataparse = data.split('/')
+        
+        if dataparse[1] == "success":
+          break
+      
+      # determine light state
+
+      
 
     #need to add the analysis table
     #and put 
