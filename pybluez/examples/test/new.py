@@ -3,6 +3,7 @@ import bluetooth
 from clientmodule import *
 from servermoudle import *
 import sys
+import root as root
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
 parent = [] #parent
