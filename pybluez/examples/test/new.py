@@ -16,6 +16,25 @@ sensor_type = ""#store sensor_type
 light_state = 0 #store light state
 search_index = 0 #store current search index
 
+def root():
+  while 1:
+    #search part
+
+    if search_index is len(addr):
+      break
+
+  while 1:
+    #infinite loop
+    while 1:
+      #send each count
+      while 1:
+        #send each child
+
+    #need to add the analysis table
+    #and put 
+        
+
+
 
 def search(dataparse, address):
   if len(parent) is not 0:
