@@ -137,7 +137,9 @@ schemas = {
 
 
 
-while 1: 
+while 1:
+  if len(sys.argv) is not 1:
+    root()
   data = servermoudle()
   dataparse = data.split('/')
   schema = dataparse[0]
