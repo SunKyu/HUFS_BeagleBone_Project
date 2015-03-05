@@ -1,7 +1,7 @@
 from test_inquiry import *
 import bluetooth
 from clientmodule import *
-from servermoudle import *
+from servermodule import *
 import sys
 import root as root
 addr = getaddr_rssi() #list of address and rssi 
