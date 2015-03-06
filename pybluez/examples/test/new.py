@@ -4,6 +4,7 @@ from clientmodule import *
 from servermodule import *
 import sys
 import root as root
+
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
 dic_sensor = {
