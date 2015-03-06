@@ -6,24 +6,59 @@ import sys
 import root as root
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
+dic_sensor = {
+    "light" : []
+    "humid" : []
+    "temper" : []
+    }
+
 parent = [] #parent
 child = [] #childe list
 number = -1
-count = -1
 indexflag  = 0 #need to change when all child visit (get, search)
 get_target = -1 #store targetnumber
 sensor_type = ""#store sensor_type
 light_state = 0 #store light state
 search_index = 0 #store current search index
+total_num = 0
 
-def root():
+# root message : "sensor_type"
+def root(res):
+  sensor_type = res
+  number = 0
+  message = "search/%d/%d" %(0, number)
+  clientmodule(message, addr[search_index].getaddr())
+  search_index = search_index + 1
   while 1:
-    #search part
+    data =servermodule()
+    dataparse = data.split('/')
+    address = dataparse[len(dataparse)-1]
 
-    if search_index is len(addr):
-      break
+    if dataparse[0] == "search":
+      response = "searchres/%s" %(dataparse[1])
+      clientmodule(response, address)
+      
+    else if dataparse[0] == "searchres":
+      if number != int(dataparse[1]):
+        child.append(int(dataparse[1]))
+        dic_addr[int(dataparse[1])] = address
+    
+      if search_index is len(addr):
+        total_num = int(dataparse[1])
+        break
+      else :
+        message = "search/%d/%d" %(int(dataparse[1]), number)
+        clientmodule(message, addr[search_index].getaddr())
+        search_index = search_index + 1
+
 
   while 1:
+    for i in range(0, total_num):
+      dic_sensor[light][i] = 0
+      dic_sensor[humid][i] = 0
+      dic_sensor[temper][i] = 0
+
+    
     #infinite loop
     num_index = 0
     while 1:
@@ -42,6 +77,8 @@ def root():
         dataparse = data.split('/')
         
         if dataparse[1] == "success":
+          if dataparse[2] == "1":
+            dic_sensor[light][num_index] = dic_sensor[light][num_index] + 1
           break
       
       # determine light state
@@ -56,7 +93,7 @@ def root():
 
 def search(dataparse, address):
   if len(parent) is not 0:
-    response = "searchres/%s" %dataparse[1]
+    response = "searchres/%s" %(dataparse[1])
     clientmodule(response, address)
   else: 
     parent.append(int(dataparse[2]))
@@ -79,7 +116,7 @@ def search(dataparse, address):
 
 #----end-----
 def searchres(dataparse, address):
-  if number != dataparse[1]:
+  if number != int(dataparse[1]):
     child.append(int(dataparse[1]))
     dic_addr[int(dataparse[1])] = address
 
@@ -176,8 +213,8 @@ schemas = {
 
 while 1:
   if len(sys.argv) is not 1:
-    root()
-  data = servermoudle()
+    root(argv[1])
+  data = servermodule()
   dataparse = data.split('/')
   schema = dataparse[0]
   address = dataparse[len(dataparse)-1]
