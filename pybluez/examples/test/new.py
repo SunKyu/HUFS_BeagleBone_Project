@@ -6,6 +6,11 @@ import sys
 import root as root
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
+dic_sensor ={
+    "light" : [],
+    "humid" : [],
+    "tmeper" : []
+    }
 parent = [] #parent
 child = [] #childe list
 number = -1
@@ -22,6 +27,15 @@ def root():
 
     if search_index is len(addr):
       break
+
+
+
+
+  #for initializing the dictionary of sensors
+  for i in range(0, count):
+    dic_sensor[light][i] = 0
+    dic_sensor[humid][i] = 0
+    dic_sensor[temper][i] = 0
 
   while 1:
     #infinite loop
@@ -42,6 +56,8 @@ def root():
         dataparse = data.split('/')
         
         if dataparse[1] == "success":
+          if dataparse[2] is "1": #add the state num
+            dic_sensor[light][num_index] = dic_sensor[light][num_index] + 1 
           break
       
       # determine light state
