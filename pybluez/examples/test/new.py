@@ -116,8 +116,8 @@ def search(dataparse, address):
    
     if len(addr) != 0:
       message = "search/%d/%d" %(count, number)
-      clientmodule(message, addr[search_index].getaddr())
-      search_index = search_index + 1
+      clientmodule(message, addr[global search_index].getaddr())
+      global search_index = global search_index + 1
 
     else:
       message = "searchres/%d" %(count)
@@ -151,7 +151,7 @@ def get(dataparse, address):
   get_target = int(dataparse[1])
   sensor_type = dataparse[2]
   if int(dataparse[1]) is number:
-    #send success message
+    #send success messag
     light_state = 1
     message = "%s/%s/%d" %("getres","success" ,light_state)
      
