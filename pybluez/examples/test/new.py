@@ -67,16 +67,17 @@ def root(res):
     for i in range(0, 5):
       num_index = 0
       while 1:
+        if num_index ==total_num:
+          break
         if num_index == number:
           # determine light state
           num_index = num_index + 1
           continue
       
         child_num = 0
-        dataparse
         while 1:
           message = "%s/%d/%s" %("get", num_index, sensor_type)
-          clientmodule(message, dic_addr[child[indexflag]])
+          clientmodule(message, dic_addr[child[child_num]])
           child_num = child_num + 1
           data = servermodule()
           dataparse = data.split('/')
@@ -85,6 +86,7 @@ def root(res):
             if dataparse[2] == "1":
               dic_sensor["light"][num_index] = dic_sensor["light"][num_index] + 1
             break
+        num_index = num_index + 1
     
     for i in range(0, total_num):
       message = ""
