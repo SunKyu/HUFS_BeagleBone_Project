@@ -26,6 +26,7 @@ total_num = 0
 # root message : "sensor_type"
 def root(res):
   sensor_type = res
+  search_index = 0
   number = 0
   message = "search/%d/%d" %(0, number)
   clientmodule(message, addr[search_index].getaddr())
