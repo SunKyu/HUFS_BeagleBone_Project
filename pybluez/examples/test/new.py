@@ -133,6 +133,8 @@ def searchres(dataparse, address):
     dic_addr[int(dataparse[1])] = address
 
   if search_index == len(addr):
+    print "parent : " + parent
+    print "child : " + child
     message = "searchres/%d" %(int(dataparse[1]))
     clientmodule(message, dic_addr.get(int(parent[0])))
 
@@ -149,11 +151,10 @@ def get(dataparse, address):
   sensor_type = dataparse[2]
   if int(dataparse[1]) is number:
     #send success message
+    light_state = 1
     message = "%s/%s/%d" %("getres","success" ,light_state)
-    if len(parent) is 1: 
-      clientmodule(message, dic_addr[parent[0]])
-    else:
-      #do we need a case??
+     
+    clientmodule(message, dic_addr[parent[0]])
 
   elif len(child) is 0: 
     #if this node is leaf node and incorrect number node
