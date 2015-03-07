@@ -58,9 +58,9 @@ def root(res):
 
   while 1:
     for i in range(0, total_num):
-      dic_sensor[light][i] = 0
-      dic_sensor[humid][i] = 0
-      dic_sensor[temper][i] = 0
+      dic_sensor["light"][i] = 0
+      dic_sensor["humid"][i] = 0
+      dic_sensor["temper"][i] = 0
 
     
     #infinite loop
