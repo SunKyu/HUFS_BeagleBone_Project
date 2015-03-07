@@ -89,7 +89,7 @@ def root(res):
             break
         num_index = num_index + 1
     
-    for i in range(0, total_num):
+    for i in range(0, total_num+1):
       message = ""
       if i == number:
         if dic_sensor["light"][i] >= 3:
