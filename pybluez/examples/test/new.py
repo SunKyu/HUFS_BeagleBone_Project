@@ -83,7 +83,7 @@ def root(res):
         
           if dataparse[1] == "success":
             if dataparse[2] == "1":
-              dic_sensor[light][num_index] = dic_sensor[light][num_index] + 1
+              dic_sensor["light"][num_index] = dic_sensor["light"][num_index] + 1
             break
     
     for i in range(0, total_num):
