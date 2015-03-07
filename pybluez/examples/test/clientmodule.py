@@ -10,6 +10,7 @@ def clientmodule(message, addr):
 
   sock=bluetooth.BluetoothSocket(bluetooth.L2CAP)
   bt_addr=addr
+  print bt_addr
   port = 0x1001
 
   print("trying to connect to %s on PSM 0x%X" % (bt_addr, port))
