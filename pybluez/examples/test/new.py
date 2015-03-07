@@ -90,7 +90,7 @@ def root(res):
     
     for i in range(0, total_num):
       message = ""
-      if dic_sensor[light][i] >= 3:
+      if dic_sensor["light"][i] >= 3:
         message = "put/%d/%s/%d" %(i, sensor_type, 1)
       else :
         message = "put/%d/%s/%d" %(i, sensor_type, 0)
