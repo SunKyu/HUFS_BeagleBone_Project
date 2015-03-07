@@ -8,9 +8,9 @@ import time
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
 dic_sensor = {
-    "light" : []
-    "humid" : []
-    "temper" : []
+    "light" : [],
+    "humid" : [],
+    "temper" : [],
     }
 
 parent = [] #parent
