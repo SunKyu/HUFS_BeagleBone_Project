@@ -57,7 +57,7 @@ def root(res):
 
 
   while 1:
-    for i in range(0, total_num):
+    for i in range(0, total_num+1):
       dic_sensor["light"].append(0)
       dic_sensor["humid"].append(0)
       dic_sensor["temper"].append(0)
