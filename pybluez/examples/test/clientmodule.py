@@ -4,7 +4,7 @@
 
 import sys
 import bluetooth
-def clinetmodule(message, addr):
+def clientmodule(message, addr):
   if sys.version < '3':
     input = raw_input
 
