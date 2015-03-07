@@ -116,9 +116,9 @@ def search(dataparse, address):
    
     if len(addr) != 0:
       message = "search/%d/%d" %(count, number)
-      localsearch_index = global search_index
-      clientmodule(message, addr[localsearch_index].getaddr())
-      global search_index = localsearch_index + 1
+      global search_index
+      clientmodule(message, addr[search_index].getaddr())
+      search_index = search_index + 1
 
     else:
       message = "searchres/%d" %(count)
