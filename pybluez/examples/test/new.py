@@ -68,7 +68,7 @@ def root(res):
       print "---------------------5th ------------"
       num_index = 0
       while 1:
-        if num_index ==total_num:
+        if num_index ==total_num+1:
           break
         if num_index == number:
           # determine light state
