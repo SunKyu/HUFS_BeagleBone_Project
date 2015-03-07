@@ -3,7 +3,7 @@ import bluetooth
 from clientmodule import *
 from servermodule import *
 import sys
-import root as root
+import time
 
 addr = getaddr_rssi() #list of address and rssi 
 dic_addr ={} #address dictionary
@@ -61,28 +61,39 @@ def root(res):
 
     
     #infinite loop
-    num_index = 0
-    while 1:
-      if num_index == number:
-        # determine light state
-        num_index = num_index + 1
-        continue
-      
-      child_num = 0
-      dataparse
+    for i in range(0, 5):
+      num_index = 0
       while 1:
-        message = "%s/%d/%s" %("get", num_index, sensor_type)
-        clientmodule(message, dic_addr[child[indexflag]])
-        child_num = child_num + 1
-        data = servermodule()
-        dataparse = data.split('/')
-        
-        if dataparse[1] == "success":
-          if dataparse[2] == "1":
-            dic_sensor[light][num_index] = dic_sensor[light][num_index] + 1
-          break
+        if num_index == number:
+          # determine light state
+          num_index = num_index + 1
+          continue
       
-      # determine light state
+        child_num = 0
+        dataparse
+        while 1:
+          message = "%s/%d/%s" %("get", num_index, sensor_type)
+          clientmodule(message, dic_addr[child[indexflag]])
+          child_num = child_num + 1
+          data = servermodule()
+          dataparse = data.split('/')
+        
+          if dataparse[1] == "success":
+            if dataparse[2] == "1":
+              dic_sensor[light][num_index] = dic_sensor[light][num_index] + 1
+            break
+    
+    for i in range(0, total_num):
+      message = ""
+      if dic_sensor[light][i] >= 3:
+        message = "put/%d/%s/%d" %(i, sensor_type, 1)
+      else :
+        message = "put/%d/%s/%d" %(i, sensor_type, 0)
+
+      for j in child:
+        clientmodule(message, dic_addr[child[j]])
+
+    sleep(30)
 
       
 
@@ -192,7 +203,7 @@ def getres(dataparse, address):
 def put(dataparse, address):
   if int(dataparse[1]) is number:
     #need to add sensortype case
-    light_state = int(dataparse[1])
+    light_state = int(dataparse[3])
   else:
     #send child the message 
     message = "%s/%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2], dataparse[3])
