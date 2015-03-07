@@ -32,6 +32,7 @@ def root(res):
   clientmodule(message, addr[search_index].getaddr())
   search_index = search_index + 1
   while 1:
+    print "=================> debug point"
     data =servermodule()
     dataparse = data.split('/')
     address = dataparse[len(dataparse)-1]
