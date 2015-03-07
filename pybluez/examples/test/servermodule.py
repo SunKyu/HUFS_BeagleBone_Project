@@ -1,4 +1,4 @@
-def servermoudle ():
+def servermodule ():
   
   server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
 
