@@ -96,7 +96,7 @@ def root(res):
         message = "put/%d/%s/%d" %(i, sensor_type, 0)
 
       for j in child:
-        clientmodule(message, dic_addr[child[j]])
+        clientmodule(message, dic_addr[j])
 
     time.sleep(30)
 
