@@ -226,7 +226,7 @@ schemas = {
 
 while 1:
   if len(sys.argv) is not 1:
-    root(argv[1])
+    root(sys.argv[1])
   data = servermodule()
   dataparse = data.split('/')
   schema = dataparse[0]
