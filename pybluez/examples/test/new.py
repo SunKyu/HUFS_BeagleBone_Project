@@ -39,7 +39,7 @@ def root(res):
       response = "searchres/%s" %(dataparse[1])
       clientmodule(response, address)
       
-    else if dataparse[0] == "searchres":
+    elif dataparse[0] == "searchres":
       if number != int(dataparse[1]):
         child.append(int(dataparse[1]))
         dic_addr[int(dataparse[1])] = address
