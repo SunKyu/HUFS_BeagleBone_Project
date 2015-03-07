@@ -1,3 +1,5 @@
+import bluetooth
+
 def servermodule ():
   
   server_sock=bluetooth.BluetoothSocket( bluetooth.L2CAP )
