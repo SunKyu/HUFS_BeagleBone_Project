@@ -55,14 +55,14 @@ def root(res):
         clientmodule(message, addr[search_index].getaddr())
         search_index = search_index + 1
 
-
+  print "child : ", child
   while 1:
     for i in range(0, total_num+1):
       dic_sensor["light"].append(0)
       dic_sensor["humid"].append(0)
       dic_sensor["temper"].append(0)
 
-    
+      
     #infinite loop
     for i in range(0, 5):
       print "---------------------5th ------------"

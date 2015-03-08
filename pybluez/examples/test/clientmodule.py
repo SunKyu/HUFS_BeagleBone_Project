@@ -21,5 +21,6 @@ def clientmodule(message, addr):
 
   print("connected.  type stuff")
   sock.send(message)
+  print("send message : %s "%message)
   sock.close()
 
