@@ -31,6 +31,7 @@ do_start () {
     #cd /opt/TEST/HUFS_libcoap_gateway/examples
     #/usr/bin/python /opt/TEST/HUFS_libcoap_gateway/examples/code.py 15 118.219.52.122:8090 &
     #echo " started"  
+    hciconfig hci0 piscan
     log_daemon_msg "Starting system $DAEMON_NAME daemon"
     #start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --exec $DAEMON -- $DAEMON_OPTS
     start-stop-daemon --start --background --pidfile $PIDFILE --make-pidfile --user $DAEMON_USER --chuid $DAEMON_USER --startas $DAEMON -- $DAEMON_ARGS
