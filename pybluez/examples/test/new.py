@@ -204,6 +204,8 @@ def get(dataparse, address):
 
 #----end-----
 def getres(dataparse, address):
+  global indexflag
+  global sensor_type
   if dataparse[1] is "success":
     #if data is success
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
@@ -224,6 +226,8 @@ def getres(dataparse, address):
 
 #----end-----
 def put(dataparse, address):
+  global number
+  global light_state
   if int(dataparse[1]) is number:
     #need to add sensortype case
     light_state = int(dataparse[3])
