@@ -121,6 +121,7 @@ def root(res):
 def search(dataparse, address):
   global number
   global search_index
+  global count
   if len(parent) is not 0:
     response = "searchres/%s" %(dataparse[1])
     clientmodule(response, address)
