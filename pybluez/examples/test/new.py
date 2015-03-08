@@ -22,10 +22,11 @@ sensor_type = ""#store sensor_type
 light_state = 0 #store light state
 search_index = 0 #store current search index
 total_num = 0
-
+count = 0 
 # root message : "sensor_type"
 def root(res):
   global number
+  global count
   sensor_type = res
   global search_index
   number = 0
@@ -43,9 +44,10 @@ def root(res):
       clientmodule(response, address)
       
     elif dataparse[0] == "searchres":
-      if number != int(dataparse[1]):
-        child.append(int(dataparse[1]))
-        dic_addr[int(dataparse[1])] = address
+      if count != int(dataparse[1]):
+        child.append(count+1)
+        dic_addr[count+1] = address
+        count = int(dataparse[1])
     
       if search_index is len(addr):
         total_num = int(dataparse[1])
@@ -145,9 +147,11 @@ def search(dataparse, address):
 def searchres(dataparse, address):
   global search_index
   global number
-  if number != int(dataparse[1]):
-    child.append(int(dataparse[1]))
-    dic_addr[int(dataparse[1])] = address
+  global count
+  if count != int(dataparse[1]):
+    child.append(count+1)
+    dic_addr[count+1] = address
+    count = int(dataparse[1])
 
   if search_index == len(addr):
     print "nember", number
