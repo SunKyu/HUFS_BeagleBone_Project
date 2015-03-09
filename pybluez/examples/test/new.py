@@ -215,6 +215,7 @@ def getres(dataparse, address):
     #if data is success
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
     clientmodule(message, dic_addr[parent[0]])
+    indexflag = 0
   else:
     #if data is fail
     if indexflag < len(child):
@@ -227,6 +228,7 @@ def getres(dataparse, address):
       #send fail(getres) message to parent, because already check all child
       message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
       clientmodule(message, dic_addr[parent[0]])
+      indexflag = 0
 
 
 #----end-----
