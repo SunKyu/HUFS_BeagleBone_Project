@@ -9,6 +9,4 @@ $ git clone https://github.com/SunKyu/HUFS_BeagleBone_Project.git
 $ sudo chmod 755 init.sh
 $ ./init.sh
 ```
-and then enter the passwords  
-run `vim` and `:PluginInstall`
 
