@@ -24,3 +24,4 @@ def clientmodule(message, addr):
   print("send message : %s "%message)
   sock.close()
 
+clientmodule(sys.argv[1], sys.argv[2])
