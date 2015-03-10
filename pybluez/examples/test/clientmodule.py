@@ -4,12 +4,15 @@
 
 import sys
 import bluetooth
-def clinetmodule(message, addr):
+import time
+def clientmodule(message, addr):
+  time.sleep(1.5)
   if sys.version < '3':
     input = raw_input
 
   sock=bluetooth.BluetoothSocket(bluetooth.L2CAP)
   bt_addr=addr
+  print bt_addr
   port = 0x1001
 
   print("trying to connect to %s on PSM 0x%X" % (bt_addr, port))
@@ -18,8 +21,6 @@ def clinetmodule(message, addr):
 
   print("connected.  type stuff")
   sock.send(message)
-  response = sock.recv(1024)
-  print(response)
+  print("send message : %s "%message)
   sock.close()
-  return response
 
