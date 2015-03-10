@@ -6,7 +6,7 @@ import sys
 import bluetooth
 import time
 def clientmodule(message, addr):
-  time.sleep(1.5)
+  time.sleep(2.5)
   if sys.version < '3':
     input = raw_input
 
@@ -21,5 +21,6 @@ def clientmodule(message, addr):
 
   print("connected.  type stuff")
   sock.send(message)
+  print("send message : %s "%message)
   sock.close()
 

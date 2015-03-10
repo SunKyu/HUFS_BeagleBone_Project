@@ -22,10 +22,11 @@ sensor_type = ""#store sensor_type
 light_state = 0 #store light state
 search_index = 0 #store current search index
 total_num = 0
-
+count = 0 
 # root message : "sensor_type"
 def root(res):
   global number
+  global count
   sensor_type = res
   global search_index
   number = 0
@@ -43,9 +44,10 @@ def root(res):
       clientmodule(response, address)
       
     elif dataparse[0] == "searchres":
-      if number != int(dataparse[1]):
-        child.append(int(dataparse[1]))
-        dic_addr[int(dataparse[1])] = address
+      if count != int(dataparse[1]):
+        child.append(count+1)
+        dic_addr[count+1] = address
+        count = int(dataparse[1])
     
       if search_index is len(addr):
         total_num = int(dataparse[1])
@@ -55,14 +57,14 @@ def root(res):
         clientmodule(message, addr[search_index].getaddr())
         search_index = search_index + 1
 
-
+  print "child : ", child
   while 1:
     for i in range(0, total_num+1):
       dic_sensor["light"].append(0)
       dic_sensor["humid"].append(0)
       dic_sensor["temper"].append(0)
 
-    
+      
     #infinite loop
     for i in range(0, 5):
       print "---------------------5th ------------"
@@ -119,6 +121,7 @@ def root(res):
 def search(dataparse, address):
   global number
   global search_index
+  global count
   if len(parent) is not 0:
     response = "searchres/%s" %(dataparse[1])
     clientmodule(response, address)
@@ -145,9 +148,11 @@ def search(dataparse, address):
 def searchres(dataparse, address):
   global search_index
   global number
-  if number != int(dataparse[1]):
-    child.append(int(dataparse[1]))
-    dic_addr[int(dataparse[1])] = address
+  global count
+  if count != int(dataparse[1]):
+    child.append(count+1)
+    dic_addr[count+1] = address
+    count = int(dataparse[1])
 
   if search_index == len(addr):
     print "nember", number
@@ -204,10 +209,13 @@ def get(dataparse, address):
 
 #----end-----
 def getres(dataparse, address):
+  global indexflag
+  global sensor_type
   if dataparse[1] is "success":
     #if data is success
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
     clientmodule(message, dic_addr[parent[0]])
+    indexflag = 0
   else:
     #if data is fail
     if indexflag < len(child):
@@ -220,10 +228,13 @@ def getres(dataparse, address):
       #send fail(getres) message to parent, because already check all child
       message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
       clientmodule(message, dic_addr[parent[0]])
+      indexflag = 0
 
 
 #----end-----
 def put(dataparse, address):
+  global number
+  global light_state
   if int(dataparse[1]) is number:
     #need to add sensortype case
     light_state = int(dataparse[3])
