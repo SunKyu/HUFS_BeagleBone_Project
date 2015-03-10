@@ -191,13 +191,6 @@ def getaddr_rssi():
         flag = 0
     if flag is 1:
       continue
-    #flag = 0
-    #for info3 in lastmac:
-    #  if info3.getaddr() is info.getaddr():
-    #    flag = 1
-    #    break
-    #if flag is 1:
-    #  continue
 
     if name == "arm-0":
       if info.getrssi() >= -80:
