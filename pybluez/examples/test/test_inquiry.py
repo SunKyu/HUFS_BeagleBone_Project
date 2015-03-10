@@ -179,16 +179,25 @@ def getaddr_rssi():
     else: 
       newmac.append(infopop)
   lastmac =[]
+  flag = 0
   for info in newmac:
     name = bluetooth.lookup_name(info.getaddr(), 10)
     print "addr -> %s, name -> %s" %(info.getaddr(), name)
-    flag = 0 
-    for info3 in lastmac:
-      if info3.getaddr() is info.getaddr():
+    for info2 in lastmac:
+      if info2.getaddr() is info.getaddr():
         flag = 1
         break
+      else:
+        flag = 0
     if flag is 1:
       continue
+    #flag = 0
+    #for info3 in lastmac:
+    #  if info3.getaddr() is info.getaddr():
+    #    flag = 1
+    #    break
+    #if flag is 1:
+    #  continue
 
     if name == "arm-0":
       if info.getrssi() >= -80:
