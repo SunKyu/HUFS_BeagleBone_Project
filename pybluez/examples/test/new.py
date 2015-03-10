@@ -1,7 +1,6 @@
 from test_inquiry import *
 import subprocess, os
 import bluetooth
-from clientmodule import *
 from servermodule import *
 import sys
 import time
