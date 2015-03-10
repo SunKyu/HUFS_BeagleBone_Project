@@ -6,8 +6,9 @@ import sys
 import time
 
 pathname = os.path.dirname(sys.argv[0])
-path = os.path.absptach(pathname)
-path = path + "clientmoudle.py"
+path = os.path.abspath(pathname)
+path = path + "/clientmoudle.py"
+print path
 
 def clientmoudlesub(message, address):
   global path
