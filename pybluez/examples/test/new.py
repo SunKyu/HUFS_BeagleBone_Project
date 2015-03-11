@@ -45,7 +45,7 @@ def root(res):
   global search_index
   number = 0
   message = "search/%d/%d" %(0, number)
-  clientcodulesub(message, addr[search_index].getaddr())
+  clientmodulesub(message, addr[search_index].getaddr())
   search_index = search_index + 1
   while 1:
     print "=================> debug point"
@@ -55,7 +55,7 @@ def root(res):
 
     if dataparse[0] == "search":
       response = "searchres/%s" %(dataparse[1])
-      clientcodulesub(response, address)
+      clientmodulesub(response, address)
       
     elif dataparse[0] == "searchres":
       if count != int(dataparse[1]):
@@ -68,7 +68,7 @@ def root(res):
         break
       else :
         message = "search/%d/%d" %(int(dataparse[1]), number)
-        clientcodulesub(message, addr[search_index].getaddr())
+        clientmodulesub(message, addr[search_index].getaddr())
         search_index = search_index + 1
 
   print "child : ", child
@@ -94,7 +94,7 @@ def root(res):
         child_num = 0
         while 1:
           message = "%s/%d/%s" %("get", num_index, sensor_type)
-          clientcodulesub(message, dic_addr[child[child_num]])
+          clientmodulesub(message, dic_addr[child[child_num]])
           child_num = child_num + 1
           data = servermodule()
           dataparse = data.split('/')
@@ -120,7 +120,7 @@ def root(res):
         message = "put/%d/%s/%d" %(i, sensor_type, 0)
 
       for j in child:
-        clientcodulesub(message, dic_addr[j])
+        clientmodulesub(message, dic_addr[j])
 
     time.sleep(30)
 
@@ -138,7 +138,7 @@ def search(dataparse, address):
   global count
   if len(parent) is not 0:
     response = "searchres/%s" %(dataparse[1])
-    clientcodulesub(response, address)
+    clientmodulesub(response, address)
   else: 
     parent.append(int(dataparse[2]))
     count = int(dataparse[1]) + 1
@@ -147,12 +147,12 @@ def search(dataparse, address):
 
     if len(addr) != 0:
       message = "search/%d/%d" %(count, number)
-      clientcodulesub(message, addr[search_index].getaddr())
+      clientmodulesub(message, addr[search_index].getaddr())
       search_index = search_index + 1
 
     else:
       message = "searchres/%d" %(count)
-      clientcodulesub(message, address)
+      clientmodulesub(message, address)
 
    
    #need more case
@@ -173,11 +173,11 @@ def searchres(dataparse, address):
     print "parent : ", parent
     print "child : ", child
     message = "searchres/%d" %(int(dataparse[1]))
-    clientcodulesub(message, dic_addr.get(int(parent[0])))
+    clientmodulesub(message, dic_addr.get(int(parent[0])))
 
   else:
     message = "search/%d/%d" %(int(dataparse[1]), number)
-    clientcodulesub(message, addr[search_index].getaddr())
+    clientmodulesub(message, addr[search_index].getaddr())
     search_index = search_index + 1
   
 
@@ -195,25 +195,25 @@ def get(dataparse, address):
     light_state = 1
     message = "%s/%s/%d" %("getres","success" ,light_state)
      
-    clientcodulesub(message, dic_addr[parent[0]])
+    clientmodulesub(message, dic_addr[parent[0]])
 
   elif len(child) is 0: 
     #if this node is leaf node and incorrect number node
     #send fail message to parent 
     message = "%s/%s/%d" %("getres", "fail", -1)
-    clientcodulesub(message, dic_addr[parent[0]])
+    clientmodulesub(message, dic_addr[parent[0]])
 
   elif int(dataparse[1]) in child:
     #if the target in child array
     child_index = child.index(int(dataparse[1]))
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
-    clientcodulesub(message, dic_addr[child[child_index]])
+    clientmodulesub(message, dic_addr[child[child_index]])
   
   else:
     #check the index flag
     #and then send message
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
-    clientcodulesub(message, dic_addr[child[indexflag]])
+    clientmodulesub(message, dic_addr[child[indexflag]])
     indexflag= indexflag+1
     
   
@@ -228,20 +228,20 @@ def getres(dataparse, address):
   if dataparse[1] is "success":
     #if data is success
     message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
-    clientcodulesub(message, dic_addr[parent[0]])
+    clientmodulesub(message, dic_addr[parent[0]])
     indexflag = 0
   else:
     #if data is fail
     if indexflag < len(child):
       #send get message other childs
       message = "%s/%d/%s" %("get",get_target , sensor_type) 
-      clientcodulesub(message, dic_addr[child[indexflag]])
+      clientmodulesub(message, dic_addr[child[indexflag]])
       indexflag = indexflag+1
 
     else:
       #send fail(getres) message to parent, because already check all child
       message = "%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2])
-      clientcodulesub(message, dic_addr[parent[0]])
+      clientmodulesub(message, dic_addr[parent[0]])
       indexflag = 0
 
 
@@ -256,7 +256,7 @@ def put(dataparse, address):
     #send child the message 
     message = "%s/%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2], dataparse[3])
     for i in child:
-      clientcodulesub(message, dic_addr[i])
+      clientmodulesub(message, dic_addr[i])
 
 #----end-----
 
