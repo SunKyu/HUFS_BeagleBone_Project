@@ -7,10 +7,10 @@ import time
 
 pathname = os.path.dirname(sys.argv[0])
 path = os.path.abspath(pathname)
-path = path + "/clientmoudle.py"
+path = path + "/clientmodule.py"
 print path
 
-def clientmoudlesub(message, address):
+def clientmodulesub(message, address):
   global path
   arg =[message, address]
   p = subprocess.Popen([path] + arg)
