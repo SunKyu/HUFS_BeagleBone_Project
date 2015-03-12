@@ -14,7 +14,7 @@ dic_sensor = {
     }
 
 parent = [] #parent
-child = [] #childe list
+child = [] #child list
 number = -1
 indexflag  = 0 #need to change when all child visit (get, search)
 get_target = -1 #store targetnumber
@@ -115,7 +115,6 @@ def root(res):
     #need to add the analysis table
     #and put 
         
-
 
 
 def search(dataparse, address):
@@ -235,23 +234,47 @@ def getres(dataparse, address):
 def put(dataparse, address):
   global number
   global light_state
+  global indexflag
+  global sensertype
   if int(dataparse[1]) is number:
     #need to add sensortype case
     light_state = int(dataparse[3])
+    message = "%s/%s" %("putres", "success")
+    clientmodule(message, dic_addr[parent[0]])
+  elif len(child) is 0:
+    message = "%s/%s" %("putres", "fail")
+    clientmodule(message, dic_addr[parent[0]])
+  elif int(dataparse[1]) in child:
+    child_index = child.index(int(dataparse[1])) 
+    message = "%s/%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2], dataparse[3])
+    clientmodule(message, dic_addr[child[child_index]])
+    
   else:
     #send child the message 
     message = "%s/%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2], dataparse[3])
-    for i in child:
-      clientmodule(message, dic_addr[i])
+    clientmodule(message, dic_addr[child[indexflag]])
+    indexflag = indexflag+1
 
 #----end-----
+
+def putres(dataparse, address):
+  global indexflag
+  global sensor_type
+  if dataparse[1] is "success":
+    message = "%s/%s" %(dataparse[0], dataparse[1])
+    clientmodule(message, dic_addr[parent[0]])
+    indexflag=0
+    #need a more
+
+
 
 schemas = {
     "search" : search,
     "searchres" : searchres,
     "get" : get,
     "getres" : getres,
-    "put" : put
+    "put" : put,
+    "putres" : putres
     }
 
 
