@@ -184,12 +184,12 @@ def getaddr_rssi():
     name = bluetooth.lookup_name(info.getaddr(), 10)
     print "addr -> %s, name -> %s" %(info.getaddr(), name)
     for info2 in lastmac:
-      if info2.getaddr() is info.getaddr():
+      if info2.getaddr() == info.getaddr():
         flag = 1
         break
       else:
         flag = 0
-    if flag is 1:
+    if flag == 1:
       continue
 
     if name == "arm-0":
