@@ -91,23 +91,23 @@ def root(res):
             break
         num_index = num_index + 1
     
+    message = ""
     for i in range(0, total_num+1):
-      message = ""
-      if i == number:
-        if dic_sensor["light"][i] >= 3:
-          light_state = 1
-        else:
-          light_state = 0
-        continue
-			
       if dic_sensor["light"][i] >= 3:
-        message = "put/%d/%s/%d" %(i, sensor_type, 1)
-      else :
-        message = "put/%d/%s/%d" %(i, sensor_type, 0)
+        message = message + "1"
+      else:
+        message = message + "0"
 
-      for j in child:
-        clientmodule(message, dic_addr[j])
-
+    if message[0] == "1": #state of root light
+      light_state = 1
+    else:
+      light_state = 0
+  
+    message = "put/" + message
+    
+    for i in child:
+      clientmodule(message, dic_addr[i])
+ 
     time.sleep(30)
 
       
@@ -235,14 +235,13 @@ def getres(dataparse, address):
 def put(dataparse, address):
   global number
   global light_state
-  if int(dataparse[1]) is number:
+  if dataparse[1][number] is "1":
     #need to add sensortype case
-    light_state = int(dataparse[3])
-  else:
-    #send child the message 
-    message = "%s/%s/%s/%s" %(dataparse[0], dataparse[1], dataparse[2], dataparse[3])
-    for i in child:
-      clientmodule(message, dic_addr[i])
+    light_state = 1
+  
+  message = "%s/%s" %(dataparse[0], dataparse[1])
+  for i in child:
+    clientmodule(message, dic_addr[i]
 
 #----end-----
 
