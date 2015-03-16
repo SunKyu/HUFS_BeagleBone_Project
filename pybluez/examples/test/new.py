@@ -241,7 +241,7 @@ def put(dataparse, address):
   
   message = "%s/%s" %(dataparse[0], dataparse[1])
   for i in child:
-    clientmodule(message, dic_addr[i]
+    clientmodule(message, dic_addr[i])
 
 #----end-----
 
